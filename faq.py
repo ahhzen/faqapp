@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from gpt_index import SimpleDirectoryReader, GPTListIndex, GPTSimpleVectorIndex, LLMPredictor, PromptHelper,  ServiceContext
 from langchain import OpenAI
+import openai
 import sys
 import os
 
@@ -27,6 +28,23 @@ def search():
         return render_template('search.html', result=result)
     else:
         return render_template('search.html')
+
+def is_valid_api_key():
+    # Replace YOUR_API_KEY with your actual OpenAI API key
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
+    try:
+        # Send a test request to the API
+        response = openai.Completion.create(
+            engine="davinci",
+            prompt="Hello, World!",
+            max_tokens=2
+            )
+    except:
+        return False
+
+    # Return True if len more than 0
+    if len(response.choices[0].text) > 0:
+        return True
 
 def init():
     #Try to load existing index from disk - sourceIndexFile = os.getcwd() + '/index/' + knowledgeName

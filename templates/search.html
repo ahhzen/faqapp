@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        form>* {
+            margin-right: 10px;
+        }
+
+        .result {
+            width: 60%;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: right;
+            padding-right: 10px;
+            width: 30%;
+        }
+
+        td {
+            text-align: left;
+            padding-left: 10px;
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ChatGPT Index Search</h1>
+    <form method="POST">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" required>
+        <button type="submit">Ask</button>
+    </form>
+    {% if result %}
+    <div class="result">
+        <h2>Result:</h2>
+        <table>
+            <tr>
+                <th>Question:</th>
+                <td>{{ result['question'] }}</td>
+            </tr>
+            <tr>
+                <th>Answer:</th>
+                <td>{{ result['answer'] }}</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+</body>
+
+</html>
